@@ -1,0 +1,96 @@
+body {
+    font-family: 'Cinzel', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-size: cover;
+    background-position: center;
+    color: #D4B886;
+    transition: background-image 0.5s ease-in-out;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(30, 30, 30, 0.9);
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid #D4B886;
+    max-width: 500px;
+    width: 90%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.timer {
+    font-size: 5rem;
+    font-weight: bold;
+    margin: 2rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.controls button, .mode button {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    margin: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    border: 2px solid #D4B886;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #D4B886;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.controls button:hover, .mode button:hover {
+    background-color: #D4B886;
+    color: #1E1E1E;
+}
+
+#startPause {
+    border-color: #D4B886;
+}
+
+#startPause.active {
+    background-color: #D4B886;
+    color: #1E1E1E;
+}
+
+#reset {
+    border-color: #D4B886;
+}
+
+.mode button {
+    border-color: #D4B886;
+}
+
+.mode button.active {
+    background-color: #D4B886;
+    color: #1E1E1E;
+}
+
+.quote {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #D4B886;
+    font-style: italic;
+}
+
+.quote p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.author {
+    font-size: 0.9rem;
+    color: #A89168;
+}
