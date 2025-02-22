@@ -6,6 +6,7 @@ class PomodoroTimer {
         this.isRunning = false;
         this.isWorkMode = true;
         this.timer = null;
+        this.focusTask = '';
 
         // DOM elements
         this.minutesDisplay = document.getElementById('minutes');
@@ -13,6 +14,7 @@ class PomodoroTimer {
         this.startPauseButton = document.getElementById('startPause');
         this.resetButton = document.getElementById('reset');
         this.modeToggleButton = document.getElementById('modeToggle');
+        this.focusDisplay = document.getElementById('focus-task');
 
         // Event listeners
         this.startPauseButton.addEventListener('click', () => this.toggleStartPause());
@@ -85,6 +87,12 @@ class PomodoroTimer {
 
     start() {
         if (!this.isRunning) {
+            // Only show focus popup if we're in work mode and don't have a focus task
+            if (this.isWorkMode && !this.focusTask) {
+                this.showFocusPopup();
+                return;
+            }
+            
             this.isRunning = true;
             this.timer = setInterval(() => {
                 this.currentTime--;
@@ -106,6 +114,9 @@ class PomodoroTimer {
     }
 
     reset() {
+        this.focusTask = '';
+        this.focusDisplay.textContent = '';
+        document.getElementById('focus-display').style.display = 'none';
         this.pause();
         this.currentTime = this.isWorkMode ? this.workTime : this.breakTime;
         this.updateDisplay();
@@ -157,6 +168,44 @@ class PomodoroTimer {
         
         quoteElement.textContent = `"${randomQuote.text}"`;
         authorElement.textContent = `- ${randomQuote.author}`;
+    }
+
+    showFocusPopup() {
+        const overlay = document.createElement('div');
+        overlay.className = 'popup-overlay';
+        
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        popup.innerHTML = `
+            <h2>What are you focusing on?</h2>
+            <input type="text" id="focus-input" placeholder="Enter your focus task...">
+            <button id="start-focus">Start Focusing</button>
+        `;
+        
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+        
+        const input = popup.querySelector('#focus-input');
+        const startButton = popup.querySelector('#start-focus');
+        
+        input.focus();
+        
+        startButton.addEventListener('click', () => {
+            this.focusTask = input.value.trim();
+            if (this.focusTask) {
+                document.getElementById('focus-display').style.display = 'block';
+                this.focusDisplay.textContent = this.focusTask;
+                document.body.removeChild(overlay);
+                this.start();
+            }
+        });
+        
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                startButton.click();
+            }
+        });
     }
 }
 
